@@ -5,4 +5,4 @@
 まず、[Google Cloud Platform](https://console.cloud.google.com/cloud-resource-manager)にアクセスしてください。
 この際に、googleアカウントでログインする必要があります。
 
-![Image GoogleCloud home](doc/figure/GoogleCloudPlatform_home.png)
+![Image GoogleCloud home](figure/GoogleCloudPlatform_home.png)

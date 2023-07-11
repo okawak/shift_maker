@@ -1,4 +1,4 @@
-# shift-maker
+# shift_maker
 **python** + **Pulp** + **gspread**
 
 シフト、スケジュール調整などを自動で行うためのスクリプトです。pythonのPulpライブラリを用いて最適化問題を解きます。
@@ -15,14 +15,22 @@
     * 入れない場合にチェックを入れてもらうことに注意
 
 となっています。
-google formについては[こちらのファイル](doc/GoogleForm.md)も参照してください。
+google formについては[about GoogleForm](doc/GoogleForm.md)も参照してください。
 メールアドレスは、個人を判別するために用いられるとともに、google formの回答を回答者に確認メールを送るためにも使われます。
 
 jsonファイルはgoogle spreadsheetと接続するために重要な認証情報なので、新たに作成する必要があります。
-2023年の時点では、[こちらのファイル](doc/GoogleAPI.md)の方法で作成できますが、もしうまくいかない場合はgoogle APIで調べてみてください。
+2023年の時点では、[about gspread](doc/GoogleAPI.md)の方法で作成できますが、もしうまくいかない場合はgoogle APIで調べてみてください。
 
 # 使い方
 ### gspreadの設定
+pythonのパッケージであるgspreadを用いて、google spreadsheetにある情報を取得します。
+gspreadを使用するためには、初期設定が必要でその方法は[about gspread](doc/GoogleAPI.md)を参考にしてください。
+バージョンによっては方法が変わっている場合もあるので、その点はご注意ください。
+
+作成された鍵であるjsonファイルはjsonディレクトリの中に入れてください。
+```shell
+mv /hoge/huga.json json/
+```
 
 ### pythonの環境構築
 pythonのvenvを用いて環境を作ります。エラーが出る場合は他に何かしらインストールが必要になるかもしれません。
