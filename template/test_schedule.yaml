@@ -1,0 +1,75 @@
+Anchor:
+- &time_class1 10:00-10:50
+- &time_class2 11:05-11:55
+- &time_class3 13:30-14:20
+- &time_class4 14:35-15:25
+- &time_YSS 15:40-17:00
+
+schedule:
+- date: 8/4(Fri)
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  
+- date: 8/5(Sat)
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: class4
+    time: *time_class4
+  - name: YSS
+    time: *time_YSS
+  
+- date: 8/7(Mon)
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: class4
+    time: *time_class4
+  - name: YSS
+    time: *time_YSS
+  
+- date: 8/8(Tue)
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: class4
+    time: *time_class4
+  - name: YSS
+    time: *time_YSS
+  
+  
+- date: 8/9(Wed)
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: short_presentation
+    time: *time_class4
+  
+- date: 8/10(Thu)
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  

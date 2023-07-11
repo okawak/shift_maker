@@ -1,0 +1,27 @@
+Anchor:
+- &time1 10:00-10:50
+- &time2 11:05-11:55
+- &time3 13:30-14:20
+- &time4 14:35-15:25
+
+schedule:
+- date: 1/1(Mon)
+  contents:
+  - name: time1
+    time: *time1
+  - name: time2
+    time: *time2
+  - name: time3
+    time: *time3
+  
+- date: 1/2(Tue)
+  contents:
+  - name: time1
+    time: *time1
+  - name: time2
+    time: *time2
+  - name: time3
+    time: *time3
+  - name: time4
+    time: *time4
+  
