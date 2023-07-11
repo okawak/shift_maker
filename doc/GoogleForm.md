@@ -1,0 +1,1 @@
+# Google Formの設定
