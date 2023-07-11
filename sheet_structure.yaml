@@ -1,0 +1,9 @@
+Anchor:
+  
+Structure:
+  name: "Shift Survey" # スプレッドシートの名前
+  sheets:
+  - shiftername: C # 列のアルファベット
+    timeslots: [D, E, F, G]
+    comment: K
+  

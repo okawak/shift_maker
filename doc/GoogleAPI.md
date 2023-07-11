@@ -116,7 +116,8 @@ Google Cloud Platform上にもメールアドレスが表示されますが、�
 ![Image GoogleSheet mail](figure/GoogleSpreadSheet_mail.png)
 
 そして、送信ボタンを押せばgspreadを用いる準備は以上になります。
-この初期設定に問題がないかどうかは、chkconnect.pyを実行して「success」が返って来れば、成功です。
+この初期設定に問題がないかどうかは、sheet_structure.yamlを編集した後、
+chkconnect.pyを実行して「success」が返って来れば、成功です。
 ```python
-python chkconnect.py
+python chkconnection.py
 ```

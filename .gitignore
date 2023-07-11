@@ -1,3 +1,6 @@
 .venv
 .old
 .vscode
+comments.txt
+data.csv
+test.ipynb

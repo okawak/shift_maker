@@ -4,103 +4,83 @@
 シフト、スケジュール調整などを自動で行うためのスクリプトです。pythonのPulpライブラリを用いて最適化問題を解きます。
 基本的にはyamlファイルを編集するだけで、拘束条件を加えることができるようになっています。
 
-このレポジトリではgoogle formなどを利用して、情報をgoogle spreadsheetに反映させ、それを取得してシフトを作成します。
+ここではgoogle formなどを利用して、情報をgoogle spreadsheetに反映させ、それを取得してシフトを作成します。
 つまり、このレポジトリにはシフトの最適化に必要なコードのみが含まれており、個人情報は含まれていません。
 使い方の節で説明するファイルを新たに作成する必要があります。
 
 また、google formを利用した場合を想定しており、このスクリプトを走らせるために必須な調査項目は、
 * 名前
-* メールアドレス
 * シフトの可否(チェックボックスを利用したグリッド方式)
     * 入れない場合にチェックを入れてもらうことに注意
 
 となっています。
-google formについては[about GoogleForm](doc/GoogleForm.md)も参照してください。
-メールアドレスは、個人を判別するために用いられるとともに、google formの回答を回答者に確認メールを送るためにも使われます。
-
-jsonファイルはgoogle spreadsheetと接続するために重要な認証情報なので、新たに作成する必要があります。
-2023年の時点では、[about gspread](doc/GoogleAPI.md)の方法で作成できますが、もしうまくいかない場合はgoogle APIで調べてみてください。
+google formについては[GoogleFormの設定](doc/GoogleForm.md)も参照してください。
+必要な情報が記載されるシフトの列番号はschedule.yamlに記入したものを読み取る設定になっているので、
+項目は自由に増やしても問題ありません。(設定に関しては使い方の節で詳しく述べます。)
 
 # 使い方
-### gspreadの設定
-pythonのパッケージであるgspreadを用いて、google spreadsheetにある情報を取得します。
-gspreadを使用するためには、初期設定が必要でその方法は[about gspread](doc/GoogleAPI.md)を参考にしてください。
-バージョンによっては方法が変わっている場合もあるので、その点はご注意ください。
 
-作成された鍵であるjsonファイルはjsonディレクトリの中に入れてください。
-```shell
-mv /hoge/huga.json json/
-```
-
-### pythonの環境構築
+## pythonの環境構築
 pythonのvenvを用いて環境を作ります。エラーが出る場合は他に何かしらインストールが必要になるかもしれません。
 ```shell
 cd directory_you_want_to_install
-git clone
-cd 
+git clone https://github.com/okawak/shift_maker.git
+cd shift_maker
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
+## gspreadの設定
+pythonのパッケージであるgspreadを用いて、google spreadsheetにある情報を取得します。
+gspreadを使用するためには、spreadsheetとサービスアカウントを連携させることが必要で、
+その方法は[gspreadの初期設定](doc/GoogleAPI.md)を参考にしてください。
+バージョンによっては方法が変わっている場合もあるので、その点はご注意ください。
 
-### シフト調査用テンプレートの作成
-pythonスクリプトの中で、Excelファイルを読み込んで、そのデータを用いる必要があるので、基本的なExcelの構造は同じでないとスクリプトは動きません。
-(柔軟性を持たせるためにもwebアプリにしちゃった方が便利かもと思っています。)
-また、配布するExcelファイルは、記入する量が少なく、なるべくシンプルな方が良いので、その時間のシフトに入れるか、入れないか、入りたくないかの3択で、
-記入してもらうようにします。
-(+特筆すべきコメントがある場合も書いてもらうようにします。)
-
-シフト調査用テンプレートを作成するために、まずschedule.yamlを編集します。
-ここにイベントのスケジュール、タイムテーブルを記載します。
-このファイルに記載した内容は文字列として処理されます。
-すでにあるファイルを参考に書き換えてください。
-Nodeの名前を変えるのは不可ですが、配列(-記号)を増やしたり消したりして調整してください。
-また、Anchorに時間情報(時間コマ)を入れるようにしてください。
+google spreadsheetの構造はsheet_structure.yamlに記入してください。
 ```shell
-vim schedule.yaml
+vim sheet_structure.yaml
 ```
 
-書き換えたのち、template_maker.pyを実行すると、template/shift_survey.xlsxファイルが作成されます。
+また、作成された鍵であるjsonファイルはjsonディレクトリの中に入れてください。
 ```shell
-python template_maker.py
+mv /hoge/huga.json json/
 ```
 
-編集したschedule.yamlは次の工程でも使うので注意してください。
-
-### シフター一覧の作成
-shifter_list.xlsxにシフトを行う人の一覧とその人の情報を書いてください。
-一列目にその情報のタイトルを記入すると、それが、シフト作成のモデル、model.yamlのconditionのnameと対応しているので、
-拘束条件を新たに追加したい時は、新たな列とmodel.yaml(モデルの設定を参照)追加してください。
-
-必須の項目としてFirst Name, Family Name, Emailの3つは記載するようにしてください。
-
-### シフト調査ファイルの受け取り
-記入してもらったファイルは、全てinputディレクトリの中に入れてください。
-pythonのglobライブラリを用いて、ファイルをまとめて処理します。
-ファイル名は自由でも大丈夫ですが、被るのは良くないので、自分の名前をファイル名に付け加えるようにアナウンスしておくのが良いかもしれないです。
-(ここでファイルの行き来が発生するのが少し面倒なので、webアプリで完結させられると良いですね…)
-
-記入漏れや、表記ゆれなどをチェックするためにcheckdata.pyを実行します。
+実際にpythonスクリプトからgoogle spreadsheetにアクセスできるかどうかをチェックしたい場合は、
+chkconnect.pyを実行してください。
 ```shell
-python checkdata.py
+python chkconnection.py
 ```
 
-シフト表を作る上で適切でないデータを持っていたり、コメントがあるファイルに関して、
-その内容についてターミナル上とnote.txt(上書き)に書き込まれます。
-適切でないデータに関しては、自動で変換されるようになっています。(全角、半角の違いなど)
+## シフター情報の追記
+実際にシフトを組むときには、このシフトにはこのような属性の人が必ず一人必要だといった、シフターの属性を取り入れると便利です。
+そこで、google spreadsheet上にその属性を追加してください。
+(シートを別にするかどうかは検討中)
 
-また、shifter_list.xlsxに登録されているのに、シフト調査表を提出していないように見える人も表示されるようになり、
-shifter_list.xlsxのsubmissionの列に提出したかどうかが記載されるようになります。
+追加したものに関してはsheet_structure.yamlに追記してください。
+```shell
+vim sheet_structure.yaml
+```
+
+model.yamlのnameノードでその変数を使用することができます。
+詳細は次のモデルの設定を参照してください。
+
+## データのチェック、整形
+```shell
+python read_data.py
+```
+
+comments.txtと整形されたデータdata.csvが出力されます。
 
 
-### モデルの設定
+## モデルの設定
 シフトの調整を最適化問題に落とし込むためには、適切な目的関数を作成し、それを最小化(最大化)する必要があります。
 
 イベントの都合上、シフトと同時に何かの仕事を振り分ける必要があり、さらにそちらの仕事の優先度が高い場合、
 その人のシフト調査ファイルを直接編集することをお勧めします。
 
-### シフト表の作成
+## シフト表の作成
 適切にmodel.yamlを作成したら、make_shifttable.pyを実行してシフト表を作成します。
 作成されたシフト表はoutput/shift_table.xlsxに作られます。
 
