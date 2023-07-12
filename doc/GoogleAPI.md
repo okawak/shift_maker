@@ -121,3 +121,5 @@ chkconnect.pyを実行して「success」が返って来れば、成功です。
 ```python
 python chkconnection.py
 ```
+
+同様にしてoutput用のスプレッドシートも用意し、サービスアカウントの登録を行ってください。

@@ -3,4 +3,4 @@
 .vscode
 comments.txt
 data.csv
-test.ipynb
+__pycache__

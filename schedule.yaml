@@ -1,27 +1,83 @@
+# Anchorは直接用いられていないが、タイムスロットとしての役割を持たせているので、
+# ここの部分にスロットを記載する必要がある
 Anchor:
-- &time1 10:00-10:50
-- &time2 11:05-11:55
-- &time3 13:30-14:20
-- &time4 14:35-15:25
+- &time_class1 10:00-10:50
+- &time_class2 11:05-11:55
+- &time_class3 13:30-14:20
+- &time_class4 14:35-15:25
+- &time_YSS 15:40-17:00
 
 schedule:
-- date: 1/1(Mon)
+- date: 8/4(Fri)
+  site: "Nishina Hall"
   contents:
-  - name: time1
-    time: *time1
-  - name: time2
-    time: *time2
-  - name: time3
-    time: *time3
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
   
-- date: 1/2(Tue)
+- date: 8/5(Sat)
+  site: "Koshiba Hall"
   contents:
-  - name: time1
-    time: *time1
-  - name: time2
-    time: *time2
-  - name: time3
-    time: *time3
-  - name: time4
-    time: *time4
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: class4
+    time: *time_class4
+  - name: YSS
+    time: *time_YSS
+  
+- date: 8/7(Mon)
+  site: "Nishina Hall"
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: class4
+    time: *time_class4
+  - name: YSS
+    time: *time_YSS
+  
+- date: 8/8(Tue)
+  site: "Nishina Hall"
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: class4
+    time: *time_class4
+  - name: YSS
+    time: *time_YSS
+  
+  
+- date: 8/9(Wed)
+  site: "Nishina Hall"
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
+  - name: class3
+    time: *time_class3
+  - name: short_presentation
+    time: *time_class4
+  
+- date: 8/10(Thu)
+  site: "Nishina Hall"
+  contents:
+  - name: class1
+    time: *time_class1
+  - name: class2
+    time: *time_class2
   

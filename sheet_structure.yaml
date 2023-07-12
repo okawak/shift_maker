@@ -1,9 +1,23 @@
 Anchor:
-  
-Structure:
-  name: "Shift Survey" # スプレッドシートの名前
+
+# 読み取り用スプレッドシート 
+Input:
+  #name: "Shift Survey"
+  name: "InputText"
   sheets:
   - shiftername: C # 列のアルファベット
-    timeslots: [D, E, F, G]
-    comment: K
+    timeslots: [D, E, F, G, H]
+    #comment: K
+    comment: I
+    attribute: J
   
+# 出力用スプレッドシート
+# NOTE: 2枚のスプレッドシートを事前に準備する必要がある
+#   一枚目: 時間基準のシフトテーブル
+#   二枚目: 個人基準のシフトテーブル
+Output:
+  #name: "Shift Table"
+  name: "TestTable"
+  sheets:
+  - name: "シート1"
+  - name: "シート2"

@@ -10,13 +10,13 @@ if __name__ == "__main__":
         print("json file is not one")
         sys.exit(1)
 
+    yaml = YAML()
+    with open("sheet_structure.yaml", "r", encoding="utf-8") as fin:
+        yaml_input = yaml.load(fin)
+
+    spread_name = yaml_input["Input"]["name"]
+
     try:
-        yaml = YAML()
-        with open("sheet_structure.yaml", "r", encoding="utf-8") as fin:
-            structure = yaml.load(fin)
-
-        spread_name = structure["Structure"]["name"]
-
         print("trying to connect " + spread_name + "...")
         gc = gspread.service_account(filename=json_name[0])
         sh = gc.open(spread_name)

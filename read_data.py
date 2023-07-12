@@ -37,17 +37,21 @@ if __name__ == "__main__":
 
     yaml = YAML()
     with open("sheet_structure.yaml", "r", encoding="utf-8") as fin:
-        structure = yaml.load(fin)
+        yaml_input = yaml.load(fin)
 
-    spread_name = structure["Structure"]["name"]
-    form_sheet_yaml = structure["Structure"]["sheets"][0]
+    spread_name = yaml_input["Input"]["name"]
+    form_sheet_yaml = yaml_input["Input"]["sheets"][0]
 
-    gc = gspread.service_account(filename=json_name[0])
-    sh = gc.open(spread_name)
-    print("connect to " + spread_name)
-    df = pd.DataFrame(sh.sheet1.get_values()[1:], columns=sh.sheet1.get_values()[0])
+    try:
+        gc = gspread.service_account(filename=json_name[0])
+        sh = gc.open(spread_name)
+        print("connect to " + spread_name)
+        df = pd.DataFrame(sh.sheet1.get_values()[1:], columns=sh.sheet1.get_values()[0])
 
-    df_new = data_preprocessor(df, form_sheet_yaml)
+        df_new = data_preprocessor(df, form_sheet_yaml)
 
-    print("making data.csv")
-    df_new.to_csv("data.csv")
+        print("making data.csv")
+        df_new.to_csv("data.csv")
+
+    except:
+        print("ERROR: cannot connect to google spread sheet")
