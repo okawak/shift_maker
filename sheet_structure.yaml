@@ -1,16 +1,19 @@
-Anchor:
-
+# ==========================================  
 # 読み取り用スプレッドシート 
 Input:
-  #name: "Shift Survey"
-  name: "InputText"
+  name: "Shift Survey"
   sheets:
-  - shiftername: C # 列のアルファベット
+  - name: form # no use
+    shiftername: C # 列のアルファベット
     timeslots: [D, E, F, G, H]
-    #comment: K
-    comment: I
-    attribute: J
-  
+    comment: K
+    #attribute: J
+
+# NOTE: 複数シートには現在対応していないです
+#       (indexは0のみ使用)
+
+
+# ==========================================  
 # 出力用スプレッドシート
 # NOTE: 2枚のスプレッドシートを事前に準備する必要がある
 #   一枚目: 時間基準のシフトテーブル

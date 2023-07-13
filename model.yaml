@@ -1,10 +1,20 @@
-Work:
-- camera
-- coffee1
-- coffee2
-- microphone1
-- microphone2
-- doorman
-  
-# 属性を用いてシフトを作る場合に追記
-Condition:
+# 属性を用いてシフトを作る場合などに追記
+# continuous_shift -> 個人の連続シフトを許容するかしないか true/false
+# need -> attributeで指定されるグループの人がshiftで表される仕事に入らなければならない
+# avoid -> attributeで指定されるグループの人が、shiftで表される仕事を避ける
+# avoidtime -> attributeで指定されるグループの人がday, timeで指定されるスロットを避ける
+
+continuous_shift: true
+
+need:
+- attribute:
+  shift:
+    
+avoid:
+- attribute:
+  shift:
+
+avoidtime:
+- attribute:
+  day:
+  time:
