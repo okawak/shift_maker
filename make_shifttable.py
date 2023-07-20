@@ -94,10 +94,9 @@ class Scheduling:
     def InitVariable(self):
         schedule_yaml = self.__scheduleyaml["schedule"]
         name_rawindex = self.__sheetyaml["Input"]["sheets"][0]["shiftername"]
-        attribute_rawindex = self.__sheetyaml["Input"]["sheets"][0]["shiftername"]
-
         name_index = self.alphabet.index(name_rawindex)
-        attribute_index = self.alphabet.index(attribute_rawindex)
+
+        attribute_index = self.__datadf.columns.get_loc("attribute")
 
         for i in range(len(self.__datadf)):
             self.__list_pa.append(
@@ -183,7 +182,7 @@ class Scheduling:
         for p, a, d, t, s in NG_list:
             ShiftScheduling += self.__x[p, a, d, t, s] == 0
 
-        # need from model.yaml
+        # "need" from model.yaml
         for i in range(len(self.__modelyaml["need"])):
             att_id = self.__modelyaml["need"][i]["attribute"]
             shift_name = self.__modelyaml["need"][i]["shift"]
@@ -197,7 +196,7 @@ class Scheduling:
                             need_sum += self.__x[p, a, d, t, s]
                     ShiftScheduling += need_sum >= 1
 
-        # avoid from model.yaml
+        # "avoid" from model.yaml
         for i in range(len(self.__modelyaml["avoid"])):
             att_id = self.__modelyaml["avoid"][i]["attribute"]
             shift_name = self.__modelyaml["avoid"][i]["shift"]
@@ -211,7 +210,7 @@ class Scheduling:
                             avoid_sum += self.__x[p, a, d, t, s]
                     ShiftScheduling += avoid_sum == 0
 
-        # avoidtime from model.yaml
+        # "avoidtime" from model.yaml
         for i in range(len(self.__modelyaml["avoidtime"])):
             att_id = self.__modelyaml["avoidtime"][i]["attribute"]
             day_name = self.__modelyaml["avoidtime"][i]["day"]
@@ -245,10 +244,9 @@ class Scheduling:
         result_list = []
 
         name_rawindex = self.__sheetyaml["Input"]["sheets"][0]["shiftername"]
-        attribute_rawindex = self.__sheetyaml["Input"]["sheets"][0]["shiftername"]
-
         name_index = self.alphabet.index(name_rawindex)
-        attribute_index = self.alphabet.index(attribute_rawindex)
+
+        attribute_index = self.__datadf.columns.get_loc("attribute")
 
         timeslot_rawindexarray = self.__sheetyaml["Input"]["sheets"][0]["timeslots"]
         timeslot_indexarray = []
