@@ -289,6 +289,14 @@ class Scheduling:
                     person_id2 = [r[0] for r in self.__table2_array].index(p)
                     self.__table2_array[person_id2][day_id2 + time_id2] = s
 
+        # set "x" for NG schedule for table2
+        NG_list = self.GetNGList()
+        for p, a, d, t, s in NG_list:
+            day_id2 = self.__table2_array[0].index(d)
+            time_id2 = self.__table2_array[1].index(t) - 1
+            person_id2 = [r[0] for r in self.__table2_array].index(p)
+            self.__table2_array[person_id2][day_id2 + time_id2] = "x"
+
     def SendOutputSpreadSheet(self):
         print("start sending data...")
         spread_name = self.__sheetyaml["Output"]["name"]
