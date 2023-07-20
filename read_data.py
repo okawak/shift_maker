@@ -34,17 +34,12 @@ def data_preprocessor(df, yaml, domain):
     # (日本語のアカウントでformを作成し、メールアドレスをONにするとラベルの名前は"メールアドレス"となる)
     df.drop_duplicates(subset="メールアドレス", keep="last", inplace=True)
 
-    try:
-        attribute_column = yaml["attribute"]
-        print("read attribute column, index = " + str(attribute_column))
-
-    except:
-        if domain == "-":
-            print("no attribute column, add 0 value")
-            df["attribute"] = 0
-        else:
-            print('user of "hoge@' + str(domain) + '" will be set attribute 1')
-            df["attribute"] = df["メールアドレス"].apply(chkdomain, in_domain=domain)
+    if domain == "-":
+        print("all attribute column will be set 0")
+        df["attribute"] = 0
+    else:
+        print('user of "hoge@' + str(domain) + '" will be set attribute 1')
+        df["attribute"] = df["メールアドレス"].apply(chkdomain, in_domain=domain)
 
     comment_index = alphabet.index(yaml["comment"])
 

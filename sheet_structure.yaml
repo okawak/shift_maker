@@ -5,11 +5,10 @@
 Input:
   name: "Shift Survey"
   sheets:
-  - name: form # no use
-    shiftername: C # 列のアルファベット
+  - name: from google form      # no use
+    shiftername: C              # 列のアルファベット
     timeslots: [D, E, F, G, H]
     comment: K
-    #attribute: J
 
 # ==========================================  
 # 出力用スプレッドシート
