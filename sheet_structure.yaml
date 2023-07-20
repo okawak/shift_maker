@@ -1,5 +1,7 @@
 # ==========================================  
 # 読み取り用スプレッドシート 
+# NOTE: 複数シートには現在対応していないです
+#       (indexは0のみ使用)
 Input:
   name: "Shift Survey"
   sheets:
@@ -15,12 +17,7 @@ Input:
 #   一枚目: 時間基準のシフトテーブル
 #   二枚目: 個人基準のシフトテーブル
 Output:
-  #name: "Shift Table"
-  name: "TestTable"
+  name: "Shift Table"
   sheets:
   - name: "シート1"
   - name: "シート2"
-
-#
-# NOTE: 複数シートには現在対応していないです
-#       (indexは0のみ使用)
