@@ -22,7 +22,7 @@ schedule:
   contents:
   - name: class1
     time: *time_class1
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+    work: [*work1, *work4, *work5, *work6]
   - name: class2
     time: *time_class2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
@@ -35,7 +35,7 @@ schedule:
   contents:
   - name: class1
     time: *time_class1
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+    work: [*work1, *work4, *work5, *work6]
   - name: class2
     time: *time_class2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
@@ -54,7 +54,7 @@ schedule:
   contents:
   - name: class1
     time: *time_class1
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+    work: [*work1, *work4, *work5, *work6]
   - name: class2
     time: *time_class2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
@@ -73,7 +73,7 @@ schedule:
   contents:
   - name: class1
     time: *time_class1
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+    work: [*work1, *work4, *work5, *work6]
   - name: class2
     time: *time_class2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
@@ -93,7 +93,7 @@ schedule:
   contents:
   - name: class1
     time: *time_class1
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+    work: [*work1, *work4, *work5, *work6]
   - name: class2
     time: *time_class2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
@@ -112,7 +112,7 @@ schedule:
   contents:
   - name: class1
     time: *time_class1
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+    work: [*work1, *work4, *work5, *work6]
   - name: class2
     time: *time_class2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]

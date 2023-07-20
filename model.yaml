@@ -4,11 +4,13 @@
 # avoid -> attributeで指定されるグループの人が、shiftで表される仕事を避ける
 # avoidtime -> attributeで指定されるグループの人がday, timeで指定されるスロットを避ける
 
-continuous_shift: true
+continuous_shift: false
 
 need:
-- attribute:
-  shift:
+- attribute: 1
+  shift: coffee1
+- attribute: 1
+  shift: doorman
     
 avoid:
 - attribute:
