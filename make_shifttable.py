@@ -175,12 +175,40 @@ class Scheduling:
                     t1 = t
                     slot_sum += self.__x[p, a, d, t, s]
 
-            ShiftScheduling += slot_sum <= 1
+            ShiftScheduling += slot_sum <= 1  # last line process
 
         # considering NG schedule
         NG_list = self.GetNGList()
         for p, a, d, t, s in NG_list:
             ShiftScheduling += self.__x[p, a, d, t, s] == 0
+
+        # maximum work number per day
+        isFirst = True
+        max_number_perday = self.__modelyaml["maxshiftnumber_perday"]
+        for p, a in self.__list_pa:
+            for d, t, s in self.__list_dts:
+                if isFirst:
+                    d1 = d
+                    day_sum = 0
+                    isFirst = False
+
+                if d == d1:
+                    day_sum += self.__x[p, a, d, t, s]
+                else:
+                    ShiftScheduling += day_sum <= max_number_perday
+                    day_sum = 0
+                    d1 = d
+                    day_sum += self.__x[p, a, d, t, s]
+
+                ShiftScheduling += day_sum <= max_number_perday  # last line process
+
+        # maximum work number
+        max_number = self.__modelyaml["maxshiftnumber"]
+        for p, a in self.__list_pa:
+            ShiftScheduling += (
+                pulp.lpSum([self.__x[p, a, d, t, s] for d, t, s in self.__list_dts])
+                <= max_number
+            )
 
         # "need" from model.yaml
         for i in range(len(self.__modelyaml["need"])):
@@ -316,6 +344,8 @@ class Scheduling:
             set_with_dataframe(
                 ws1, pd.DataFrame(self.__table1_array), include_column_header=False
             )
+            ws1.freeze(rows=2)
+            ws1.freeze(cols=2)
             print("connect to sheet: " + sheetsyaml[0]["name"])
 
             ws2 = sh.worksheet(sheetsyaml[1]["name"])
@@ -323,6 +353,8 @@ class Scheduling:
             set_with_dataframe(
                 ws2, pd.DataFrame(self.__table2_array).T, include_column_header=False
             )
+            ws2.freeze(rows=1)
+            ws2.freeze(cols=2)
             print("connect to sheet: " + sheetsyaml[1]["name"])
 
         except:

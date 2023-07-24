@@ -1,10 +1,14 @@
 # 属性を用いてシフトを作る場合などに追記
 # continuous_shift -> 個人の連続シフトを許容するかしないか true/false
+# maxshiftnumber_perday -> 一日に何個のシフトまで許容するか
+# maxshiftnumber -> イベント全体で何個のシフトまで許容するか
 # need -> attributeで指定されるグループの人がshiftで表される仕事に入らなければならない
 # avoid -> attributeで指定されるグループの人が、shiftで表される仕事を避ける
 # avoidtime -> attributeで指定されるグループの人がday, timeで指定されるスロットを避ける
 
-continuous_shift: false
+continuous_shift:      false
+maxshiftnumber_perday: 2
+maxshiftnumber:        5
 
 need:
 - attribute: 1
