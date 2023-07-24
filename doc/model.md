@@ -9,14 +9,25 @@
 * s: shift work
 
 これらの変数を引数に取る変数$x$を定義します。
+<!--
 $$
 x(p,~a,~d,~t,~s) = \begin{cases}
     1 & (\mathrm{person\ (p,~a)\ takes\ (d,~t,~s)\ shift}) \\
     0 & (\mathrm{otherwise})
   \end{cases}
 $$
+-->
+```math
+x(p,~a,~d,~t,~s) = \begin{cases}
+    1 & (\mathrm{person\ (p,~a)\ takes\ (d,~t,~s)\ shift}) \\
+    0 & (\mathrm{otherwise})
+  \end{cases}
+```
 
+<!--
 この変数$x$を、全ての$(p,~a,~d,~t,~s)$の組み合わせで考えます。
+-->
+この変数$`x`$を、全ての$`(p,~a,~d,~t,~s)`$の組み合わせで考えます。
 
 ## 目的関数
 最適化として、最小化する関数を
