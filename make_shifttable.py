@@ -39,6 +39,8 @@ class Scheduling:
             print("execute first read_data.py")
             sys.exit(1)
         self.__datadf = pd.read_csv("data.csv")
+        # make random result for each execution
+        self.__datadf = self.__datadf.sample(frac=1)
 
         self.__Ndate = len(self.__scheduleyaml["schedule"])
         self.__Nslot = len(self.__scheduleyaml["timeslots"])
