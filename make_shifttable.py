@@ -212,6 +212,29 @@ class Scheduling:
                 <= max_number
             )
 
+        # at least number of shift
+        atleast_number = self.__modelyaml["atleastnumber"]
+        for p, a in self.__list_pa:
+            ShiftScheduling += (
+                pulp.lpSum(self.__x[p, a, d, t, s] for d, t, s in self.__list_dts)
+                >= atleast_number
+            )
+
+        # limit number of the same work
+        samework_number = self.__modelyaml["limitsameworknum"]
+        shift_list = []
+        for i in range(len(self.__scheduleyaml["shiftworks"])):
+            shift_list.append(self.__scheduleyaml["shiftworks"][i])
+
+        for p, a in self.__list_pa:
+            for s1 in shift_list:
+                shift_sum = 0
+                for d, t, s in self.__list_dts:
+                    if s == s1:
+                        shift_sum += self.__x[p, a, d, t, s]
+
+                ShiftScheduling += shift_sum <= samework_number
+
         # "need" from model.yaml
         for i in range(len(self.__modelyaml["need"])):
             att_id = self.__modelyaml["need"][i]["attribute"]
@@ -254,6 +277,21 @@ class Scheduling:
                         if a == att_id:
                             avoidtime_sum += self.__x[p, a, d, t, s]
                     ShiftScheduling += avoidtime_sum == 0
+
+        # "limitnumber" from model.yaml
+        for i in range(len(self.__modelyaml["limitnumber"])):
+            att_id = self.__modelyaml["limitnumber"][i]["attribute"]
+            numberlimit = self.__modelyaml["limitnumber"][i]["number"]
+            if att_id == None:
+                continue
+            for p, a in self.__list_pa:
+                if a == att_id:
+                    ShiftScheduling += (
+                        pulp.lpSum(
+                            [self.__x[p, a, d, t, s] for d, t, s in self.__list_dts]
+                        )
+                        <= numberlimit
+                    )
 
         # solve
         try:
