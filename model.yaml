@@ -2,19 +2,22 @@
 # continuous_shift -> 個人の連続シフトを許容するかしないか true/false
 # maxshiftnumber_perday -> 一日に何個のシフトまで許容するか
 # maxshiftnumber -> イベント全体で何個のシフトまで許容するか
+# atleastnumber -> 最低何回のシフトに入らなければならないか
+# limitsameworknum -> 同じ仕事に割り振られる数の制限
 # need -> attributeで指定されるグループの人がshiftで表される仕事に入らなければならない
 # avoid -> attributeで指定されるグループの人が、shiftで表される仕事を避ける
 # avoidtime -> attributeで指定されるグループの人がday, timeで指定されるスロットを避ける
+# limitnumber -> attributeで指定されるグループの人が入るシフトの数の制限(ここにはない仕事を引き受けてもらう場合など)
 
 continuous_shift:      false
 maxshiftnumber_perday: 2
-maxshiftnumber:        5
+maxshiftnumber:        4
+atleastnumber:         1
+limitsameworknum:      3
 
 need:
-- attribute: 1
-  shift: coffee1
-- attribute: 1
-  shift: doorman
+- attribute:
+  shift:
     
 avoid:
 - attribute:
@@ -24,3 +27,10 @@ avoidtime:
 - attribute:
   day:
   time:
+- attribute:
+  day:
+  time:
+
+limitnumber:
+- attribute:
+  number:

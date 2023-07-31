@@ -1,119 +1,101 @@
 # ここで用いられる名前は、model.yamlでも用いるので、同じ名前となるようにすること
 # (str型で処理される)
 timeslots:
-- &time_class1 09:50-10:50
-- &time_class2 10:50-12:05
-- &time_class3 13:20-14:20
-- &time_class4 14:20-15:25
-- &time_YSS 15:25-17:00
+- &time1 09:50-10:50
+- &time2 10:50-12:05
+- &time3 13:20-14:20
+- &time4 14:20-15:25
+- &time5 15:25-17:00
   
 shiftworks:
-- &work1 camera
-- &work2 coffee1
-- &work3 coffee2
-- &work4 microphone1
-- &work5 microphone2
-- &work6 doorman
-- &ext extra
+- &work1 work1
+- &work2 work2
+- &work3 work3
+- &work4 work4
+- &work5 work5
+- &work6 work6
 
 schedule:
-- date: "8/4 (Fri)"
-  site: "Nishina Hall"
+- date: "1/1 (Mon)"
+  site: "site1"
   contents:
-  - name: class1
-    time: *time_class1
-    work: [*work1, *work4, *work5, *work6]
-  - name: class2
-    time: *time_class2
+  - name: event1
+    time: *time1
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class3
-    time: *time_class3
+  - name: event2
+    time: *time2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  
-- date: "8/5 (Sat)"
-  site: "Koshiba Hall"
+  - name: event3
+    time: *time3
+    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+
+ - date: "1/2 (Tue)"
+  site: "site2"
   contents:
-  - name: class1
-    time: *time_class1
-    work: [*work1, *work4, *work5, *work6]
-  - name: class2
-    time: *time_class2
+  - name: event1
+    time: *time1
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class3
-    time: *time_class3
+  - name: event2
+    time: *time2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class4
-    time: *time_class4
+  - name: event3
+    time: *time3
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: YSS
-    time: *time_YSS
+  - name: event4
+    time: *time4
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  
-- date: "8/7 (Mon)"
-  site: "Nishina Hall"
+  - name: event5
+    time: *time5
+    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+ 
+ - date: "1/3 (Wed)"
+  site: "site1"
   contents:
-  - name: class1
-    time: *time_class1
-    work: [*work1, *work4, *work5, *work6]
-  - name: class2
-    time: *time_class2
+  - name: event1
+    time: *time1
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class3
-    time: *time_class3
+  - name: event2
+    time: *time2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class4
-    time: *time_class4
-    work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: YSS
-    time: *time_YSS
+  - name: event3
+    time: *time3
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
   
-- date: "8/8 (Tue)"
-  site: "Nishina Hall"
+ - date: "1/4 (Thu)"
+  site: "site2"
   contents:
-  - name: class1
-    time: *time_class1
-    work: [*work1, *work4, *work5, *work6]
-  - name: class2
-    time: *time_class2
+  - name: event1
+    time: *time1
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class3
-    time: *time_class3
+  - name: event2
+    time: *time2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class4
-    time: *time_class4
+  - name: event3
+    time: *time3
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: YSS
-    time: *time_YSS
+  - name: event4
+    time: *time4
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  
-  
-- date: "8/9 (Wed)"
-  site: "Nishina Hall"
+  - name: event5
+    time: *time5
+    work: [*work1, *work2, *work3, *work4, *work5, *work6]
+ 
+ - date: "1/5 (Fri)"
+  site: "site1"
   contents:
-  - name: class1
-    time: *time_class1
-    work: [*work1, *work4, *work5, *work6]
-  - name: class2
-    time: *time_class2
+  - name: event1
+    time: *time1
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: class3
-    time: *time_class3
+  - name: event2
+    time: *time2
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: short_presentation
-    time: *time_class4
+  - name: event3
+    time: *time3
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  - name: poster_session
-    time: *time_YSS
+  - name: event4
+    time: *time4
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  
-- date: "8/10 (Thu)"
-  site: "Nishina Hall"
-  contents:
-  - name: class1
-    time: *time_class1
-    work: [*work1, *work4, *work5, *work6]
-  - name: class2
-    time: *time_class2
+  - name: event5
+    time: *time5
     work: [*work1, *work2, *work3, *work4, *work5, *work6]
-  
+ 
