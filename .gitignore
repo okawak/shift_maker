@@ -1,5 +1,5 @@
 .venv
 .vscode
 comments.txt
-data.csv
+*.csv
 __pycache__
