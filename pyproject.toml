@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "shift-maker"
+version = "0.1.0"
+description = "shift maker using google form and google spread sheet"
+package-mode = false
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+gspread = "^6.1.2"
+pandas = "^2.2.2"
+"ruamel.yaml" = "^0.18.6"
+gspread-dataframe = "^4.0.0"
+PuLP = "^2.9.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
