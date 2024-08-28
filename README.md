@@ -1,4 +1,5 @@
 # shift_maker
+
 **python** + **Pulp** + **gspread**
 
 シフト、スケジュール調整などを自動で行うためのスクリプトです。pythonのPulpライブラリを用いて最適化問題を解きます。
@@ -9,11 +10,12 @@
 このスクリプトを実行するためには、APIを利用するので、使い方の節で説明するような下準備をする必要があります。
 
 google formに必須な調査項目は、
-* 名前
-* メールアドレス
-* シフトの可否(チェックボックスを利用したグリッド方式)
-    * 入れない場合にチェックを入れてもらうことに注意
-* 特筆事項を記載するコメント
+
+-   名前
+-   メールアドレス
+-   シフトの可否(チェックボックスを利用したグリッド方式)
+    -   入れない場合にチェックを入れてもらうことに注意
+-   特筆事項を記載するコメント
 
 となっています。
 google formについては[GoogleFormの設定](doc/GoogleForm.md)も参照してください。
@@ -23,9 +25,9 @@ google formについては[GoogleFormの設定](doc/GoogleForm.md)も参照し�
 デフォルトでは(model.yamlに何も追記しない場合)、シフトの可否のみを考慮したテーブルが作られます。
 具体的には、
 
-* 特定のシフトには必ず一人割り当てられる
-* 一つの時間スロットに同じ人が割り当てられるのを禁止する
-* Formで回答されたNGのスケジュールにはシフトを入れない
+-   特定のシフトには必ず一人割り当てられる
+-   一つの時間スロットに同じ人が割り当てられるのを禁止する
+-   Formで回答されたNGのスケジュールにはシフトを入れない
 
 の三つです。表式は、make_shifttable.pyを見てください。
 
@@ -34,28 +36,47 @@ google formについては[GoogleFormの設定](doc/GoogleForm.md)も参照し�
 # 使い方
 
 ## pythonの環境構築
+
 pythonのvenvを用いて環境を作ります。エラーが出る場合は他に何かしらインストールが必要になるかもしれません。
 動作確認は以下の環境で行っています。
 
-* Almalinux release 9.2
-* python 3.9.16
-* pip 23.1.2
-* その他のライブラリのバージョンはrequirements.txtを参照してください。
+-   Almalinux release 9.2
+-   python 3.9.16
+-   pip 23.1.2
 
-まず環境を作るために、以下のコマンドを実行してください。
+また、仮想環境の管理に`poetry`を使用しています。
+事前にpoetryのインストールをお願いします。
+公式サイトで推奨されている方法は、`pipx install poetry`です。
+この場合は`pipx`も初めにインストールしておく必要があります。
+
+poetryがインストールできれば、まず、仮想環境の準備をしてください。
+プロジェクトの中に.venvディレクトリを作成したい場合は、
+
+```shell
+poetry config virtualenvs.in-project true
+```
+
+というグローバルな設定を行なっておくことをお勧めします。
+
+このリポジトリを使用するための環境は以下のようにして作成できます。
+
 ```shell
 cd directory_you_want_to_install
 git clone https://github.com/okawak/shift_maker.git
 cd shift_maker
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
+poetry install
 ```
 
-初めに一度上記のコマンドを実行した後は、source .venv/bin/activateで環境に入ることができます。
+初めに一度上記のコマンドを実行した後は、`poetry shell`または、`source .venv/bin/activate`で環境に入ることができます。
+環境に入らずに実行したい場合、以下のpythonコマンドを実行する際に、`poetry run`をpythonの前につけてください。
+例えば、以下のようにすればpoetryで作成した環境でpythonスクリプトを実行することになります。
+
+```shell
+poetry run python script.py
+```
 
 ## gspreadの設定
+
 pythonのパッケージであるgspreadを用いて、google spreadsheetにある情報を取得します。
 gspreadを使用するためには、spreadsheetとサービスアカウントを連携させることが必要で、
 その方法は[gspreadの初期設定](doc/GoogleAPI.md)を参考にしてください。
@@ -64,6 +85,7 @@ gspreadを使用するためには、spreadsheetとサービスアカウント�
 また初期設定時に作成される秘密鍵であるjsonファイルはjsonディレクトリの中に入れてください。
 どんなファイル名でも問題ありませんが、鍵は一つだけにしてください。
 (複数アカウントは対応していません。)
+
 ```shell
 mv /hoge/huga.json json/
 ```
@@ -71,13 +93,15 @@ mv /hoge/huga.json json/
 初期設定が終了したら、Input用とOutput用のスプレッドシートの構造をsheet_structure.yamlファイルに書いてください。
 実際にpythonスクリプトからgoogle spreadsheetにアクセスできるかどうかをチェックしたい場合は、
 chkconnect.pyを実行してください。
+
 ```shell
 python chkconnection.py
 ```
+
 successが返って来れば接続は問題ありません。
 
-
 ## データのチェック、整形
+
 google spreadsheetから情報を取得するためには、read_data.pyを実行してください。
 名前をtestにしたFormの回答を無視する、
 また、同じ人が複数回答した場合は、タイムスタンプが新しいものを採用するなどの処理が行われます。
@@ -96,6 +120,7 @@ python read_data.py
 ```shell
 python read_data.py -i hoge.com
 ```
+
 これは、hoge.comのドメインを持つメールアドレスで登録されたユーザーを1の属性に、その他のユーザーを0の属性になるようにします。
 コマンドライン引数で簡単に属性を追加できる条件があれば、今後アップデートをするかもしれませんが、現状は特定のドメインかどうか
 のみに対応していますので、ご注意ください。
@@ -106,23 +131,24 @@ python read_data.py -i hoge.com
 
 また、formに書かれた特筆事項コメントは、まとめてcomments.txtに出力されます。
 
-
 ## モデルの設定
+
 model.yamlに書かれたコメントをもとに必要な拘束条件を追記してください。
 追記できる条件は、次の通りです。
 
-* 連続のシフトを許容するかしないか
-* ある特定の人が一日に最大何回までシフトの仕事をとれるか
-* ある特定の人がイベント全体で最大何回までのシフトの仕事をとれるか
-* ある特定の仕事には、特定のattributeの人が入らなければならない場合
-* ある特定の仕事には、特定のattributeの人が入ってはいけない場合
-* ある特定の時間の仕事には、特定のattributeの人が入ってはいけない場合
+-   連続のシフトを許容するかしないか
+-   ある特定の人が一日に最大何回までシフトの仕事をとれるか
+-   ある特定の人がイベント全体で最大何回までのシフトの仕事をとれるか
+-   ある特定の仕事には、特定のattributeの人が入らなければならない場合
+-   ある特定の仕事には、特定のattributeの人が入ってはいけない場合
+-   ある特定の時間の仕事には、特定のattributeの人が入ってはいけない場合
 
 yamlファイルの配列を追加する形で、条件を増やすことが可能です。
 
 また、このスクリプトで用いているモデルは、[こちら](doc/model.md)を参照してください。
 
 ## シフト表の作成
+
 適切にmodel.yamlを作成したら、make_shifttable.pyを実行してシフト表を作成します。
 自動でsheet_structure.yamlのOutputに書かれたシートに結果が書かれるようになっています。
 結果が書かれる前に、シートをclearするので、手動で何かを加えた後にこれを実行すると、
@@ -133,16 +159,20 @@ python make_shifttable.py
 ```
 
 また、最適化することができない条件だった場合は、ターミナル上に
+
 ```
 optimality = Infeasible, target value = 135.0
 ```
+
 のように"Infeasible"と表示されます。
 拘束条件、シフトの人数などを見直す必要があります。
 
 うまく解を見つけられた場合、
+
 ```
 optimality = Optimal, target value = 150.0
 ```
+
 のように"Optimal"と表示されます。
 
 ただし、必要な条件が足りなかったりする場合もあるので、出力されたシフトテーブルは良く確認してください。
