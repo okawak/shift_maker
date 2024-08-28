@@ -6,7 +6,7 @@ package-mode = false
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.9"
+python = ">=3.9,<4"
 gspread = "^6.1.2"
 pandas = "^2.2.2"
 "ruamel.yaml" = "^0.18.6"
