@@ -37,42 +37,34 @@ google formについては[GoogleFormの設定](doc/GoogleForm.md)も参照し�
 
 ## pythonの環境構築
 
-pythonのvenvを用いて環境を作ります。エラーが出る場合は他に何かしらインストールが必要になるかもしれません。
-動作確認は以下の環境で行っています。
+Python 3.11以上が必要です。依存パッケージと仮想環境は[uv](https://docs.astral.sh/uv/)で管理しています。
+事前に[公式のインストール手順](https://docs.astral.sh/uv/getting-started/installation/)に従ってuvをインストールしてください。
 
--   Almalinux release 9.2
--   python 3.9.16
--   pip 23.1.2
-
-また、仮想環境の管理に`poetry`を使用しています。
-事前にpoetryのインストールをお願いします。
-公式サイトで推奨されている方法は、`pipx install poetry`です。
-この場合は`pipx`も初めにインストールしておく必要があります。
-
-poetryがインストールできれば、まず、仮想環境の準備をしてください。
-プロジェクトの中に.venvディレクトリを作成したい場合は、
-
-```shell
-poetry config virtualenvs.in-project true
-```
-
-というグローバルな設定を行なっておくことをお勧めします。
-
-このリポジトリを使用するための環境は以下のようにして作成できます。
+以下のコマンドで、`uv.lock`に記録されたバージョンのパッケージを`.venv`にインストールします。
+対応するPythonが見つからない場合は、uvが自動でダウンロードします。
 
 ```shell
 cd directory_you_want_to_install
 git clone https://github.com/okawak/shift_maker.git
 cd shift_maker
-poetry install
+uv sync --locked
 ```
 
-初めに一度上記のコマンドを実行した後は、`poetry shell`または、`source .venv/bin/activate`で環境に入ることができます。
-環境に入らずに実行したい場合、以下のpythonコマンドを実行する際に、`poetry run`をpythonの前につけてください。
-例えば、以下のようにすればpoetryで作成した環境でpythonスクリプトを実行することになります。
+スクリプトは`uv run python`で実行します。仮想環境を有効化する操作は不要です。
+既存の`.venv`がPython 3.9や3.10を使用している場合は、`uv sync --locked --python 3.14`で対応する環境に作り直してください。
+最適化にはPuLPに同梱されているCBCソルバーを使用します。
 
 ```shell
-poetry run python script.py
+uv run python script.py
+```
+
+依存パッケージを更新する場合は`uv lock --upgrade`、続いて`uv sync --locked`を実行してください。
+新しい依存パッケージの追加には`uv add パッケージ名`を使用し、`pyproject.toml`と`uv.lock`を一緒に管理してください。
+
+Google Sheetsへの接続を行わずに、データ処理とシフト最適化のテストを実行できます。
+
+```shell
+uv run python -m unittest discover -s tests -v
 ```
 
 ## gspreadの設定
@@ -95,7 +87,7 @@ mv /hoge/huga.json json/
 chkconnect.pyを実行してください。
 
 ```shell
-python chkconnection.py
+uv run python chkconnection.py
 ```
 
 successが返って来れば接続は問題ありません。
@@ -108,7 +100,7 @@ google spreadsheetから情報を取得するためには、read_data.pyを実�
 そして読み取ったデータがdata.csvに出力されます。
 
 ```shell
-python read_data.py
+uv run python read_data.py
 ```
 
 実際にシフトを組むときには、このシフトにはこのような属性の人が必ず一人必要だといった、シフターの属性を取り入れると便利です。
@@ -118,7 +110,7 @@ python read_data.py
 現在のバージョンでは以下のようなコマンドライン引数を設定すると、メールのドメインで属性を区別することができます。
 
 ```shell
-python read_data.py -i hoge.com
+uv run python read_data.py -i hoge.com
 ```
 
 これは、hoge.comのドメインを持つメールアドレスで登録されたユーザーを1の属性に、その他のユーザーを0の属性になるようにします。
@@ -155,7 +147,7 @@ yamlファイルの配列を追加する形で、条件を増やすことが可�
 手動で書き加えたものは消えてしまうので注意してください。
 
 ```shell
-python make_shifttable.py
+uv run python make_shifttable.py
 ```
 
 また、最適化することができない条件だった場合は、ターミナル上に

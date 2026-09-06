@@ -137,7 +137,7 @@ class Scheduling:
         self.__x = {}
         for p, a in self.__list_pa:
             for d, t, s in self.__list_dts:
-                self.__x[p, a, d, t, s] = pulp.LpVariable(
+                self.__x[p, a, d, t, s] = ShiftScheduling.add_variable(
                     "x({:},{:},{:},{:},{:})".format(p, a, d, t, s), 0, 1, pulp.LpInteger
                 )
 
@@ -325,16 +325,16 @@ class Scheduling:
 
         for _, data in self.__datadf.iterrows():
             for i in timeslot_indexarray:
-                if type(data[i]) == float:
+                if pd.isna(data.iloc[i]):
                     continue
-                for day_str in [s.strip() for s in data[i].split(",")]:
+                for day_str in [s.strip() for s in data.iloc[i].split(",")]:
                     for d, t, s in self.__list_dts:
                         if (
                             d == day_str
                             and t == timeslots_array[i - timeslot_indexarray[0]]
                         ):
                             result_list.append(
-                                (data[name_index], data[attribute_index], d, t, s)
+                                (data.iloc[name_index], data.iloc[attribute_index], d, t, s)
                             )
 
         return result_list

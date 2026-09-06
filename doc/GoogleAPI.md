@@ -119,6 +119,6 @@ Google Cloud Platform上にもメールアドレスが表示されますが、�
 そして、送信ボタンを押せばgspreadを用いる準備は以上になります。
 この初期設定に問題がないかどうかは、sheet_structure.yamlを編集した後、
 chkconnect.pyを実行して「success」が返って来れば、成功です。
-```python
-python chkconnection.py
+```shell
+uv run python chkconnection.py
 ```
