@@ -61,6 +61,12 @@ uv run python script.py
 依存パッケージを更新する場合は`uv lock --upgrade`、続いて`uv sync --locked`を実行してください。
 新しい依存パッケージの追加には`uv add パッケージ名`を使用し、`pyproject.toml`と`uv.lock`を一緒に管理してください。
 
+Dependabotによる依存パッケージの更新PRの自動作成も設定しています。
+`.github/dependabot.yml`がGitHubのデフォルトブランチに反映されると有効になり、
+毎週月曜日の日本時間9:00に更新を確認します。未マージのバージョン更新PRは最大5件です。
+更新PRは内容とテスト結果を確認してから手動でマージしてください。
+設定の詳細は[uvの公式ドキュメント](https://docs.astral.sh/uv/guides/integration/dependabot/)を参照してください。
+
 Google Sheetsへの接続を行わずに、データ処理とシフト最適化のテストを実行できます。
 
 ```shell
